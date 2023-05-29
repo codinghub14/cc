@@ -1,0 +1,63 @@
+create folder of any name
+
+make three files
+
+
+app.yaml
+
+
+runtime: python27
+threadsafe: true
+
+handlers:
+- url: /
+  script: main.app
+
+
+index.html
+
+
+<html>
+  <head>
+    <title>Tanvis app</title>
+  </head>
+  <body>
+    <h1>This is the app running on GAE</h1>
+  </body>
+</html>
+
+
+main.py
+
+
+
+
+import webapp2
+
+class MainPage(webapp2.RequestHandler):
+    def get(self):
+        # Read the contents of the HTML file
+        with open('index.html', 'r') as file:
+            html_content = file.read()
+
+        # Set the response content type
+        self.response.headers['Content-Type'] = 'text/html'
+
+        # Send the HTML content as the response
+        self.response.write(html_content)
+
+app = webapp2.WSGIApplication([('/', MainPage),], debug=True)
+
+
+
+
+to deploy the app open cloud sdk shell
+
+
+it will look like 
+
+C:\Users\agraw\AppData\Local\Google\Cloud SDK>
+
+now type the following command :
+
+py google-cloud-sdk\bin\dev_appserver.py "path to main.py"
